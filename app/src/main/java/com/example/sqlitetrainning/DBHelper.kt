@@ -51,13 +51,26 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLit
         val args = arrayOf(id.toString())
         val db = this.writableDatabase
 
+        // A que es igual
         val borrados = db.delete("amigos", "id = ?", args)
         db.execSQL(sql: "DELETE FROM AMIGOS WHERE ID = ?", args)
 
         db.close()
         return borrados
-
-
     }
+    fun addName(id: Int, name: String, age: String) {
+        val values = ContentValues()
+        values.put(NAME_COL, name)
+        values.put(AGE_COL, age)
+
+        val args = arrayOf(id.toString())
+
+        val db = this.writableDatabase
+        db.updata(TABLE_NAME, values,"id = ?", args)
+        db.close()
+    }
+
+
+
 }
 
